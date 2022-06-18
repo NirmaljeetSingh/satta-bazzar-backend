@@ -45,4 +45,4 @@ mongoose.connect(process.env.DB_CONNECTION,{
 },() => console.log('mongo connected !!'));
 app.listen(PORT,(req,res) => {
     console.log('Listen to '+PORT);
-})
+});
