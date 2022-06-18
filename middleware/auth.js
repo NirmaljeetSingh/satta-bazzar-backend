@@ -1,7 +1,7 @@
 const express = require('express');
 
 const verify = async(req,res,next) => {
-    const token = req.headers['secret-key'] ?? '';
+    const token = req.headers['secret-key'] || '';
 
     // if(!token) return res.status(401).send({message:'Un-authorized !!'});
     // try {
