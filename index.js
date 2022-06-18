@@ -40,7 +40,11 @@ app.use('/api/admin',adminApi);
 
 
 const PORT = process.env.PORT || 3003;
-mongoose.connect(process.env.DB_CONNECTION,{ useNewUrlParser : true},() => console.log('mongo connected !!'));
+mongoose.connect(process.env.DB_CONNECTION,{ 
+    useNewUrlParser : true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+},() => console.log('mongo connected !!'));
 app.listen(PORT,(req,res) => {
     console.log('Listen to '+PORT);
 })
