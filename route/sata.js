@@ -9,13 +9,13 @@ const AuthMiddleware = require('../middleware/auth');
 router.get('/get',AuthMiddleware,async (req,res) => {
     let satta = await Satta.find();
     // console.log(req.body);
-    console.log(req);
-    console.log('sata',satta);
+    // console.log(req);
+    // console.log('sata',satta);
     return res.status(200).send(satta);
 });
 
 router.post('/satta',AuthMiddleware,async (req,res) => {
-    console.log('body ==> ',req.body);
+    // console.log('body ==> ',req.body);
     // console.log('Params ==> ',req.params);
     const savingDataGot = {
         title : req.body.title,
