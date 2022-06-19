@@ -7,6 +7,8 @@ const Admin = require('../models/admin');
 const jwt = require('jsonwebtoken');
 const AdminMiddleware = require('../middleware/adminauth');
 const Satta = require('../models/sata');
+const SattaCity = require('../models/sattaCity');
+const Annoucment = require('../models/announcment');
 
 router.post('/login', async (req,res) => {
     console.log(req.body);
@@ -143,5 +145,133 @@ router.post('/satta/:id',AdminMiddleware,async (req,res) => {
     }
 });
 
+// for city result routes
+router.get('/city/get',AdminMiddleware,async (req,res) => {
+    let satta = await SattaCity.find();
+    // console.log(req.body);
+    // console.log(req);
+    // console.log('sata',satta);
+    return res.status(200).send(satta);
+});
+router.get('/city/get/:id',AdminMiddleware,async (req,res) => {
+    console.log(req.params);
+    let satta = await SattaCity.findById(req.params.id);
+    // console.log(req.body);
+    // console.log(req);
+    console.log('sata',satta);
+    // if(!sata) return res.status(404).send({message : 'Not Found !!'});
+    return res.status(200).send(satta);
+});
 
+router.post('/city/satta',AdminMiddleware,async (req,res) => {
+    console.log('body ==> ',req.body);
+    let validation = Joi.object({
+        title : Joi.string().required(),
+        resultDate : Joi.date().required(),
+        resultA : Joi.required(),
+        resultB : Joi.required(),
+        resultC : Joi.required(),
+        resultD : Joi.required(),
+        resultE : Joi.required(),
+    });
+    const {error,value} = validation.validate(req.body);
+    if(error) return res.status(202).send({ message : error.message});
+    // console.log('Params ==> ',req.params);
+    const savingDataGot = {
+        title : req.body.title,
+        resultDate: req.body.resultDate,
+        resultDateTime: req.body.resultDate,
+        resultA: req.body.resultA,
+        resultB: req.body.resultB,
+        resultC: req.body.resultC,
+        resultD: req.body.resultD,
+        resultE: req.body.resultE,
+    };
+    console.log(savingDataGot);
+    try {
+        const sattaData = await SattaCity.create(savingDataGot);
+        return res.status(200).send({message : 'Data saved !!',data :sattaData });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({'message' : 'Error while saving data','error' : error});
+    }
+});
+router.post('/city/satta/:id',AdminMiddleware,async (req,res) => {
+    console.log('body ==> ',req.params);
+    if(!req.params.id) return res.status(404).send({message : 'Invalid id !'});
+    let findOne = await SattaCity.findById(req.params.id);
+    if(!findOne) return res.status(404).send({message : 'Data not found !'});
+    // return res.send(req.body)
+    let validation = Joi.object({
+        title : Joi.string().required(),
+        resultDate : Joi.date().required(),
+        resultA : Joi.required(),
+        resultB : Joi.required(),
+        resultC : Joi.required(),
+    });
+    const {error,value} = validation.validate(req.body);
+    if(error) return res.status(202).send({ message : error.message});
+    // console.log('Params ==> ',req.params);
+    const savingDataGot = {
+        title : req.body.title,
+        resultDate: req.body.resultDate,
+        resultDateTime: req.body.resultDate,
+        resultA: req.body.resultA,
+        resultB: req.body.resultB,
+        resultC: req.body.resultC,
+    };
+    console.log(savingDataGot);
+    try {
+        const sattaData = await SattaCity.findById(req.params.id).update(savingDataGot);
+        // const sattaData = await Satta.create(savingDataGot);
+        return res.status(200).send({message : 'Data update !!',data :sattaData });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({'message' : 'Error while saving data','error' : error});
+    }
+});
+
+// announcments
+
+router.get('/announcment',AdminMiddleware,async (req,res) => {
+    console.log(req.params);
+    let satta = await Annoucment.findOne();
+    // console.log(req.body);
+    // console.log(req);
+    console.log('sata',satta);
+    // if(!sata) return res.status(404).send({message : 'Not Found !!'});
+    return res.status(200).send(satta);
+});
+
+router.post('/announcment',AdminMiddleware,async (req,res) => {
+    // console.log('body ==> ',req.body);
+    let validation = Joi.object({
+        title : Joi.string().required(),
+        description : Joi.string().required(),
+    });
+    const {error,value} = validation.validate(req.body);
+    if(error) return res.status(202).send({ message : error.message});
+    // console.log('Params ==> ',req.params);
+    const savingDataGot = {
+        title : req.body.title,
+        description: req.body.description,
+    };
+    // console.log(savingDataGot);
+    try {
+        let satta = await Annoucment.findOne();
+        let sattaData;
+        if(satta)
+        {
+            sattaData = await Annoucment.findOne().update(savingDataGot);
+        }
+        else
+        {
+            sattaData = await Annoucment.create(savingDataGot);
+        }
+        return res.status(200).send({message : 'Data saved !!',data :sattaData });
+    } catch (error) {
+        // console.log(error);
+        return res.status(500).send({'message' : 'Error while saving data','error' : error});
+    }
+});
 module.exports = router;
