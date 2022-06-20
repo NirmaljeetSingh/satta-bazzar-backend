@@ -54,8 +54,10 @@ router.get('/city/get',AuthMiddleware,async (req,res) => {
     // console.log(req.query);
     let date = req.query.date;
     console.log(date);
-    let begin = date+'T00:00:00.000Z'
-    let end = date+'T23:59:59.000Z'
+    let begin = date+'-01T00:00:00.000Z'
+    let end = date+'-31T23:59:59.000Z'
+    console.log('begin date ===> '+begin);
+    console.log('end date ===> '+end);
     let satta = await SattaCity.find(
         {
             resultDateTime:  {
@@ -63,6 +65,12 @@ router.get('/city/get',AuthMiddleware,async (req,res) => {
                 '$lte': end
             }
         }
+        // { 
+        //     resultDateTime: { 
+        //         $month : begin,
+        //         $year : begin
+        //     }
+        // }
     );
     return res.status(200).send(satta);
 });

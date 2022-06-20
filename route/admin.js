@@ -208,6 +208,8 @@ router.post('/city/satta/:id',AdminMiddleware,async (req,res) => {
         resultA : Joi.required(),
         resultB : Joi.required(),
         resultC : Joi.required(),
+        resultD : Joi.required(),
+        resultE : Joi.required(),
     });
     const {error,value} = validation.validate(req.body);
     if(error) return res.status(202).send({ message : error.message});
@@ -219,6 +221,8 @@ router.post('/city/satta/:id',AdminMiddleware,async (req,res) => {
         resultA: req.body.resultA,
         resultB: req.body.resultB,
         resultC: req.body.resultC,
+        resultD: req.body.resultD,
+        resultE: req.body.resultE,
     };
     console.log(savingDataGot);
     try {
