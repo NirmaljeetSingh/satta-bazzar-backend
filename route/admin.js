@@ -252,6 +252,8 @@ router.post('/announcment',AdminMiddleware,async (req,res) => {
     let validation = Joi.object({
         title : Joi.string().required(),
         description : Joi.string().required(),
+        adminno : Joi.string().required(),
+        importanttext : Joi.string().required(),
     });
     const {error,value} = validation.validate(req.body);
     if(error) return res.status(202).send({ message : error.message});
@@ -259,6 +261,8 @@ router.post('/announcment',AdminMiddleware,async (req,res) => {
     const savingDataGot = {
         title : req.body.title,
         description: req.body.description,
+        adminno: req.body.adminno || '',
+        importanttext: req.body.importanttext | '',
     };
     // console.log(savingDataGot);
     try {

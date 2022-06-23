@@ -9,6 +9,14 @@ const AnnoucmentSchema = mongoose.Schema({
         type: String,
         default : null
     },
+    adminno: {
+        type: String,
+        default : null
+    },
+    importanttext: {
+        type: String,
+        default : null
+    },
     deletedAt: {
         type: Date,
         default : null
