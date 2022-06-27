@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //form-urlencoded
 
 app.use(cors({
-    origin: ['https://www.nvasaverasatta.com/','http://localhost:3003']
+    origin: '*'
 })) // Use this after the variable declaration
 
 
