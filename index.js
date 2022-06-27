@@ -28,7 +28,7 @@ require('dotenv/config');
 
 app.get('/',(req,res) => {
     console.log(req);
-    console.log("=============================");
+    
     console.log(res);
     res.send('hello');
 })
