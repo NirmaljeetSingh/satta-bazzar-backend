@@ -17,7 +17,9 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true })); 
 //form-urlencoded
 
-app.use(cors()) // Use this after the variable declaration
+app.use(cors({
+    origin: ['https://www.nvasaverasatta.com/','http://localhost:3003']
+})) // Use this after the variable declaration
 
 
 // for parsing multipart/form-data
