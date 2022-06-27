@@ -146,8 +146,8 @@ router.post('/satta/:id',AdminMiddleware,async (req,res) => {
     const savingDataGot = {
         title : req.body.title,
         description: req.body.description,
-        resultDate: moment(req.body.description).utc(),
-        resultDateTime: moment(req.body.description).utc(),
+        resultDate: moment(req.body.resultDate).utc(),
+        resultDateTime: moment(req.body.resultDate).utc(),
         resultA: req.body.resultA,
         resultB: req.body.resultB,
         resultC: req.body.resultC,
