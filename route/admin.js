@@ -111,8 +111,8 @@ router.post('/satta',AdminMiddleware,async (req,res) => {
     const savingDataGot = {
         title : req.body.title,
         description: req.body.description,
-        resultDate: moment(req.body.resultDate).utc(),
-        resultDateTime: moment(req.body.resultDate).utc(),
+        resultDate: req.body.resultDate,
+        resultDateTime: req.body.resultDate,
         resultA: req.body.resultA || null,
         resultB: req.body.resultB || null,
         resultC: req.body.resultC || null,
@@ -146,8 +146,8 @@ router.post('/satta/:id',AdminMiddleware,async (req,res) => {
     const savingDataGot = {
         title : req.body.title,
         description: req.body.description,
-        resultDate: moment(req.body.resultDate).utc(),
-        resultDateTime: moment(req.body.resultDate).utc(),
+        resultDate: req.body.resultDate,
+        resultDateTime: req.body.resultDate,
         resultA: req.body.resultA,
         resultB: req.body.resultB,
         resultC: req.body.resultC,
