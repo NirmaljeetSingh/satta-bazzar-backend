@@ -110,9 +110,9 @@ router.post('/satta',AdminMiddleware,async (req,res) => {
     // console.log(moment(req.body.resultDate).unix());
     const savingDataGot = {
         title : req.body.title,
-        description: moment(req.body.description).utc(),
+        description: req.body.description,
         resultDate: moment(req.body.resultDate).utc(),
-        resultDateTime: req.body.resultDate,
+        resultDateTime: moment(req.body.resultDate).utc(),
         resultA: req.body.resultA || null,
         resultB: req.body.resultB || null,
         resultC: req.body.resultC || null,
@@ -145,9 +145,9 @@ router.post('/satta/:id',AdminMiddleware,async (req,res) => {
     // console.log('Params ==> ',req.params);
     const savingDataGot = {
         title : req.body.title,
-        description: moment(req.body.description).utc(),
+        description: req.body.description,
         resultDate: moment(req.body.description).utc(),
-        resultDateTime: req.body.resultDate,
+        resultDateTime: moment(req.body.description).utc(),
         resultA: req.body.resultA,
         resultB: req.body.resultB,
         resultC: req.body.resultC,
