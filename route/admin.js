@@ -61,6 +61,21 @@ router.post('/signup', async (req,res) => {
     return res.status(201).send(AdminData);
 });
 router.get('/get',AdminMiddleware,async (req,res) => {
+    if(req.query.date)
+    {
+        let date = req.query.date;
+        let begin = date+'T00:00:00.000Z'
+        let end = date+'T23:59:59.000Z'
+        let satta = await Satta.find(
+            {
+                resultDateTime:  {
+                    '$gte': begin,
+                    '$lte': end
+                }
+            }
+        );
+        return res.status(200).send(satta);
+    }
     let satta = await Satta.find();
     // console.log(req.body);
     // console.log(req);
@@ -147,6 +162,20 @@ router.post('/satta/:id',AdminMiddleware,async (req,res) => {
 
 // for city result routes
 router.get('/city/get',AdminMiddleware,async (req,res) => {
+    console.log(req.query);
+    if(req.query.date)
+    {
+        let date = req.query.date;
+        let begin = date+'-01T00:00:00.000Z'
+        let end = date+'-31T23:59:59.000Z'
+        let satta = await SattaCity.find({
+            resultDateTime:  {
+                '$gte': begin,
+                '$lte': end
+            }
+        });
+        return res.status(200).send(satta);
+    }
     let satta = await SattaCity.find();
     // console.log(req.body);
     // console.log(req);
