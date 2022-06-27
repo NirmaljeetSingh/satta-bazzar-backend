@@ -14,23 +14,23 @@ const SattaCitySchema = mongoose.Schema({
         default : null
     },
     resultA: {
-        type: Number,
+        type: String,
         default : null
     },
     resultB: {
-        type: Number,
+        type: String,
         default : null
     },
     resultC: {
-        type: Number,
+        type: String,
         default : null
     },
     resultD: {
-        type: Number,
+        type: String,
         default : null
     },
     resultE: {
-        type: Number,
+        type: String,
         default : null
     },
     deletedAt: {

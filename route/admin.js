@@ -9,6 +9,7 @@ const AdminMiddleware = require('../middleware/adminauth');
 const Satta = require('../models/sata');
 const SattaCity = require('../models/sattaCity');
 const Annoucment = require('../models/announcment');
+var moment = require('moment');
 
 router.post('/login', async (req,res) => {
     console.log(req.body);
@@ -63,9 +64,10 @@ router.post('/signup', async (req,res) => {
 router.get('/get',AdminMiddleware,async (req,res) => {
     if(req.query.date)
     {
+        
         let date = req.query.date;
-        let begin = date+'T00:00:00.000Z'
-        let end = date+'T23:59:59.000Z'
+        let begin = moment(date).utc()
+        let end = moment(date).add('1','day').utc()
         let satta = await Satta.find(
             {
                 resultDateTime:  {
@@ -105,14 +107,15 @@ router.post('/satta',AdminMiddleware,async (req,res) => {
     const {error,value} = validation.validate(req.body);
     if(error) return res.status(202).send({ message : error.message});
     // console.log('Params ==> ',req.params);
+    // console.log(moment(req.body.resultDate).unix());
     const savingDataGot = {
         title : req.body.title,
         description: req.body.description,
         resultDate: req.body.resultDate,
         resultDateTime: req.body.resultDate,
-        resultA: req.body.resultA,
-        resultB: req.body.resultB,
-        resultC: req.body.resultC,
+        resultA: req.body.resultA || null,
+        resultB: req.body.resultB || null,
+        resultC: req.body.resultC || null,
     };
     console.log(savingDataGot);
     try {
@@ -163,11 +166,12 @@ router.post('/satta/:id',AdminMiddleware,async (req,res) => {
 // for city result routes
 router.get('/city/get',AdminMiddleware,async (req,res) => {
     console.log(req.query);
+    // console.log(moment(req.query.date).add('1','month').utc());
     if(req.query.date)
     {
         let date = req.query.date;
-        let begin = date+'-01T00:00:00.000Z'
-        let end = date+'-31T23:59:59.000Z'
+        let begin = moment(date).utc()
+        let end = moment(date).add('1','month').utc()
         let satta = await SattaCity.find({
             resultDateTime:  {
                 '$gte': begin,
@@ -206,15 +210,16 @@ router.post('/city/satta',AdminMiddleware,async (req,res) => {
     const {error,value} = validation.validate(req.body);
     if(error) return res.status(202).send({ message : error.message});
     // console.log('Params ==> ',req.params);
+    // console.log(new Date(req.body.resultDate).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'}));
     const savingDataGot = {
         title : req.body.title,
         resultDate: req.body.resultDate,
         resultDateTime: req.body.resultDate,
-        resultA: req.body.resultA,
-        resultB: req.body.resultB,
-        resultC: req.body.resultC,
-        resultD: req.body.resultD,
-        resultE: req.body.resultE,
+        resultA: req.body.resultA || null,
+        resultB: req.body.resultB || null,
+        resultC: req.body.resultC || null,
+        resultD: req.body.resultD || null,
+        resultE: req.body.resultE || null,
     };
     console.log(savingDataGot);
     try {
