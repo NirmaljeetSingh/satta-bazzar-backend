@@ -17,9 +17,10 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true })); 
 //form-urlencoded
 
-app.use(cors({
-    origin: '*'
-})) // Use this after the variable declaration
+app.use(cors()); // Use this after the variable declaration
+// {
+//     origin: '*'
+// })
 
 
 // for parsing multipart/form-data
