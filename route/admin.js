@@ -175,7 +175,7 @@ router.get('/city/get',AdminMiddleware,async (req,res) => {
     if(req.query.date)
     {
         let date = req.query.date;
-        console.log('admin side ====');
+        console.log('admin side city ====');
         console.log('date => ',date);
         let begin = moment(date).utc()
         console.log('begin => ',begin);
