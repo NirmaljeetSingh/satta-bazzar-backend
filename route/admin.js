@@ -209,7 +209,10 @@ router.post('/city/satta',AdminMiddleware,async (req,res) => {
     });
     const {error,value} = validation.validate(req.body);
     if(error) return res.status(202).send({ message : error.message});
-    // console.log('Params ==> ',req.params);
+
+    console.log('pass deom conditions ');
+    
+    // console.log('body ==> ',req.body);
     // console.log(new Date(req.body.resultDate).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'}));
     const savingDataGot = {
         title : req.body.title,
