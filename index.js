@@ -14,7 +14,7 @@ const jwt = require('jsonwebtoken');
 // app.use(cors());  // Use this after the variable declaration
 
 app.use(cors({
-    origin: ['*','https://www.nvasaverasatta.com','http://www.nvasaverasatta.com','http://localhost:3000']
+    origin: ['*','www.nvasaverasatta.com','localhost:3000']
 })) // Use this after the variable declaration
 
 // app.use(cors('*'));
