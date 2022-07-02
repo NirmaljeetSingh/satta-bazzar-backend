@@ -21,6 +21,15 @@ app.use(cors({
     origin: ['*','https://www.nvasaverasatta.com','http://www.nvasaverasatta.com']
 })) // Use this after the variable declaration
 
+app.use((req, res, next) => {
+    res.set({
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
+    });
+
+    next();
+});
 
 // for parsing multipart/form-data
 app.use(fileUpload.array()); 
