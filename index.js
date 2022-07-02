@@ -11,7 +11,7 @@ const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 
 
-app.use(cors());  // Use this after the variable declaration
+app.use(cors()); // Use this after the variable declaration
 
 // app.use(cors({
 //     origin: ['*','www.nvasaverasatta.com','localhost:3000']
