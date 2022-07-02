@@ -11,9 +11,7 @@ const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 
 
-app.use(cors({
-    origin: "*"
-})) // Use this after the variable declaration
+app.use(cors()); // Use this after the variable declaration
 
 // app.use(cors('*'));
 // app.use(bodyParser.urlencoded({ extended: false }))
