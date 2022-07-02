@@ -27,7 +27,7 @@ router.get('/get',AuthMiddleware,async (req,res) => {
     //         }
     //     }
     // );
-    let date = req.query.date;
+    let date = req.query.date || new Date();
     console.log('satta getting api');
     console.log('date ==> ',date);
     let begin = moment(date).utc()
@@ -82,7 +82,7 @@ router.get('/city/get',AuthMiddleware,async (req,res) => {
     //         }
     //     }
     // );
-    let date = req.query.date;
+    let date = req.query.date || new Date();
         console.log('side city ====');
         console.log('date => ',date);
         let begin = moment(date).utc()
