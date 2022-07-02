@@ -2,6 +2,11 @@ const express = require('express');
 
 const verify = async(req,res,next) => {
     const token = req.headers['secret-key'];
+    res.set({
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "*",
+                "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
+            });
 
     if(!token) return res.status(401).send({message:'Un-authorized !!'});
     try {
