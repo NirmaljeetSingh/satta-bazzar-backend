@@ -6,7 +6,7 @@ const verify = async(req,res,next) => {
     if(!token) return res.status(401).send({message:'Un-authorized !!'});
     try {
         // const isVerified = await jwt.verify(token,jwtSecretKey);
-        const token_app = '#1234nirmaljeetdeveloper987654321#satta#free#react#**project123456789#./';
+        const token_app = '#1234nirmaljeetdeveloper987654321#satta#free#react#**project123456789#';
         if(token != token_app) return res.status(401).send({message:'Invlaid token !!'});
     } catch (error) {
         return res.status(401).send({message:'Invlaid token !!'});
