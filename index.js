@@ -12,10 +12,17 @@ const jwt = require('jsonwebtoken');
 
 
 // app.use(cors()); // Use this after the variable declaration
+// const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
 
-app.use(cors({
-    origin: ['*','www.nvasaverasatta.com','localhost:3000']
-})) // Use this after the variable declaration
+app.use(cors(corsOptions));
+// app.use(cors({
+//     origin: ['*','www.nvasaverasatta.com','localhost:3000']
+// })) // Use this after the variable declaration
 
 // app.use(cors('*'));
 // app.use(bodyParser.urlencoded({ extended: false }))
