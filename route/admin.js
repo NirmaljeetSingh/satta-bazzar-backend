@@ -66,6 +66,7 @@ router.get('/get',AdminMiddleware,async (req,res) => {
     {
         
         let date = req.query.date;
+        console.log('admin side ====');
         console.log('satta getting api');
         console.log('date ==> ',date);
         let begin = moment(date).utc()
@@ -174,8 +175,12 @@ router.get('/city/get',AdminMiddleware,async (req,res) => {
     if(req.query.date)
     {
         let date = req.query.date;
+        console.log('admin side ====');
+        console.log('date => ',date);
         let begin = moment(date).utc()
+        console.log('begin => ',begin);
         let end = moment(date).add('1','month').utc()
+        console.log('end => ',end);
         let satta = await SattaCity.find({
             resultDateTime:  {
                 '$gte': begin,
