@@ -10,6 +10,7 @@ var cors = require('cors')
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 
+app.use(cors());
 // app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json())
 // app.use(express.urlencoded({ extended: true }))
@@ -17,19 +18,20 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true })); 
 //form-urlencoded
 
-app.use(cors({
-    origin: ['*','https://www.nvasaverasatta.com','http://www.nvasaverasatta.com','http://localhost:3000']
-})) // Use this after the variable declaration
 
-app.use((req, res, next) => {
-    res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "*",
-        "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
-    });
+// app.use(cors({
+//     origin: ['*','https://www.nvasaverasatta.com','http://www.nvasaverasatta.com','http://localhost:3000']
+// })) // Use this after the variable declaration
 
-    next();
-});
+// app.use((req, res, next) => {
+//     res.set({
+//         "Access-Control-Allow-Origin": "*",
+//         "Access-Control-Allow-Methods": "*",
+//         "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
+//     });
+
+//     next();
+// });
 
 // for parsing multipart/form-data
 app.use(fileUpload.array()); 
