@@ -65,7 +65,8 @@ router.get('/get',AdminMiddleware,async (req,res) => {
     if(req.query.date)
     {
         
-        let date = req.query.date || new Date();
+        let date = req.query.date;
+        if(date == 'Invalid date') return res.status(200).send([]);
         console.log('admin side ====');
         console.log('satta getting api');
         console.log('date ==> ',date);
@@ -174,7 +175,8 @@ router.get('/city/get',AdminMiddleware,async (req,res) => {
     // console.log(moment(req.query.date).add('1','month').utc());
     if(req.query.date)
     {
-        let date = req.query.date || new Date();
+        let date = req.query.date;
+        if(date == 'Invalid date') return res.status(200).send([]);
         console.log('admin side city ====');
         console.log('date => ',date);
         let begin = moment(date).utc()
