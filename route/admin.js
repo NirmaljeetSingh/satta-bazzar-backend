@@ -9,7 +9,9 @@ const AdminMiddleware = require('../middleware/adminauth');
 const Satta = require('../models/sata');
 const SattaCity = require('../models/sattaCity');
 const Annoucment = require('../models/announcment');
+const ResultData = require('../models/resultData');
 var moment = require('moment');
+const { route } = require('./sata');
 
 router.post('/login', async (req,res) => {
     console.log(req.body);
@@ -64,25 +66,30 @@ router.post('/signup', async (req,res) => {
 router.get('/get',AdminMiddleware,async (req,res) => {
     if(req.query.date)
     {
-        
-        let date = req.query.date;
-        if(date == 'Invalid date') return res.status(200).send([]);
-        console.log('admin side ====');
-        console.log('satta getting api');
-        console.log('date ==> ',date);
-        let begin = moment(date).utc()
-        console.log('begin ==> ',begin);
-        let end = moment(date).add('1','day').utc()
-        console.log('end ==> ',end);
-        let satta = await Satta.find(
-            {
-                resultDateTime:  {
-                    '$gte': begin,
-                    '$lte': end
+        try {
+            let date = req.query.date;
+            if(date == 'Invalid date') return res.status(200).send([]);
+            console.log('admin side ====');
+            console.log('satta getting api');
+            console.log('date ==> ',date);
+            let begin = moment(date).utc()
+            console.log('begin ==> ',begin);
+            let end = moment(date).add('1','day').utc()
+            console.log('end ==> ',end);
+            let satta = await Satta.find(
+                {
+                    resultDateTime:  {
+                        '$gte': begin,
+                        '$lte': end
+                    }
                 }
-            }
-        );
-        return res.status(200).send(satta);
+            );
+            return res.status(200).send(satta);
+            
+        } catch (error) {
+            return res.status(500).send([]);
+        }
+        
     }
     let satta = await Satta.find();
     // console.log(req.body);
@@ -175,21 +182,26 @@ router.get('/city/get',AdminMiddleware,async (req,res) => {
     // console.log(moment(req.query.date).add('1','month').utc());
     if(req.query.date)
     {
-        let date = req.query.date;
-        if(date == 'Invalid date') return res.status(200).send([]);
-        console.log('admin side city ====');
-        console.log('date => ',date);
-        let begin = moment(date).utc()
-        console.log('begin => ',begin);
-        let end = moment(date).add('1','month').utc()
-        console.log('end => ',end);
-        let satta = await SattaCity.find({
-            resultDateTime:  {
-                '$gte': begin,
-                '$lte': end
-            }
-        });
-        return res.status(200).send(satta);
+        try {
+            let date = req.query.date;
+            if(date == 'Invalid date') return res.status(200).send([]);
+            console.log('admin side city ====');
+            console.log('date => ',date);
+            let begin = moment(date).utc()
+            console.log('begin => ',begin);
+            let end = moment(date).add('1','month').utc()
+            console.log('end => ',end);
+            let satta = await SattaCity.find({
+                resultDateTime:  {
+                    '$gte': begin,
+                    '$lte': end
+                }
+            });
+            return res.status(200).send(satta);
+            
+        } catch (error) {
+            return res.status(500).send([]);
+        }
     }
     let satta = await SattaCity.find();
     // console.log(req.body);
@@ -300,6 +312,8 @@ router.post('/announcment',AdminMiddleware,async (req,res) => {
     let validation = Joi.object({
         title : Joi.string().required(),
         description : Joi.string().required(),
+        title2 : Joi.string().required(),
+        description2 : Joi.string().required(),
         adminno : Joi.string().required(),
         importanttext : Joi.string().required(),
     });
@@ -309,6 +323,8 @@ router.post('/announcment',AdminMiddleware,async (req,res) => {
     const savingDataGot = {
         title : req.body.title,
         description: req.body.description,
+        title2 : req.body.title2,
+        description2 : req.body.description2,
         adminno: req.body.adminno || '',
         importanttext: req.body.importanttext | '',
     };
@@ -328,6 +344,26 @@ router.post('/announcment',AdminMiddleware,async (req,res) => {
     } catch (error) {
         // console.log(error);
         return res.status(500).send({'message' : 'Error while saving data','error' : error});
+    }
+});
+
+router.post('/box/result',AdminMiddleware,async (req,res) => {
+    let validation = Joi.object({
+        old : Joi.any().required(),
+        new : Joi.any().required(),
+    });
+    const {error,value} = validation.validate(req.body);
+    if(error) return res.status(202).send({ message : error.message});
+    // let findrsD = await ResultData.deleteOne();
+    let findrs = await ResultData.findOne();
+    if(findrs) await ResultData.findById(findrs._id).updateOne(req.body);
+    else  findrs = await ResultData.create(req.body);
+    try {
+        
+        let rsd = await ResultData.findById(findrs._id)
+        return res.status(200).send(rsd);
+    } catch (error) {
+        return res.status(500).send('noooooo');
     }
 });
 module.exports = router;
