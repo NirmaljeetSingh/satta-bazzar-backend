@@ -312,8 +312,8 @@ router.post('/announcment',AdminMiddleware,async (req,res) => {
     let validation = Joi.object({
         title : Joi.string().required(),
         description : Joi.string().required(),
-        // title2 : Joi.string().required(),
-        // description2 : Joi.string().required(),
+        title2 : Joi.string().required(),
+        description2 : Joi.string().required(),
         adminno : Joi.string().required(),
         importanttext : Joi.string().required(),
     });
@@ -323,8 +323,8 @@ router.post('/announcment',AdminMiddleware,async (req,res) => {
     const savingDataGot = {
         title : req.body.title,
         description: req.body.description,
-        // title2 : req.body.title2,
-        // description2 : req.body.description2,
+        title2 : req.body.title2,
+        description2 : req.body.description2,
         adminno: req.body.adminno || '',
         importanttext: req.body.importanttext | '',
     };
