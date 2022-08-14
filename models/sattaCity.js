@@ -33,6 +33,10 @@ const SattaCitySchema = mongoose.Schema({
         type: String,
         default : null
     },
+    resultF: {
+        type: String,
+        default : null
+    },
     deletedAt: {
         type: Date,
         default : null

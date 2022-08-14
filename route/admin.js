@@ -229,6 +229,7 @@ router.post('/city/satta',AdminMiddleware,async (req,res) => {
         resultC : Joi.required(),
         resultD : Joi.required(),
         resultE : Joi.required(),
+        resultF : Joi.required(),
     });
     const {error,value} = validation.validate(req.body);
     if(error) return res.status(202).send({ message : error.message});
@@ -246,6 +247,7 @@ router.post('/city/satta',AdminMiddleware,async (req,res) => {
         resultC: req.body.resultC || null,
         resultD: req.body.resultD || null,
         resultE: req.body.resultE || null,
+        resultF: req.body.resultF || null,
     };
     console.log(savingDataGot);
     try {
@@ -270,6 +272,7 @@ router.post('/city/satta/:id',AdminMiddleware,async (req,res) => {
         resultC : Joi.required(),
         resultD : Joi.required(),
         resultE : Joi.required(),
+        resultF : Joi.required(),
     });
     const {error,value} = validation.validate(req.body);
     if(error) return res.status(202).send({ message : error.message});
@@ -283,6 +286,7 @@ router.post('/city/satta/:id',AdminMiddleware,async (req,res) => {
         resultC: req.body.resultC,
         resultD: req.body.resultD,
         resultE: req.body.resultE,
+        resultF: req.body.resultF,
     };
     console.log(savingDataGot);
     try {
