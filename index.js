@@ -66,7 +66,7 @@ app.use('/api',api);
 app.use('/api/admin',adminApi);
 
 
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 8000;
 mongoose.connect(process.env.DB_CONNECTION,{ 
     useNewUrlParser : true
 },() => console.log('mongo connected !!'));
