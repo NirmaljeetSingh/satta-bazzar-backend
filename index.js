@@ -7,6 +7,14 @@ const bodyParser = require('body-parser');
 var cors = require('cors')
 
 
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
+var privateKey  = fs.readFileSync('../../ssl/key.pem', 'utf8');
+var certificate = fs.readFileSync('../../ssl/certificate.crt', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 
@@ -20,32 +28,26 @@ const corsOptions ={
 }
 
 app.use(cors(corsOptions));
+
+// www/ssl/
+
+// certificate.crt
+// key.pem
+/*************************************************************** */
 // app.use(cors({
 //     origin: ['*','www.nvasaverasatta.com','localhost:3000']
 // })) // Use this after the variable declaration
 
 // app.use(cors('*'));
 // app.use(bodyParser.urlencoded({ extended: false }))
+/*************************************************************** */
+
 app.use(express.json())
+
 // app.use(express.urlencoded({ extended: true }))
 // for parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: true })); 
 //form-urlencoded
-
-
-// app.use(cors({
-//     origin: ['*','https://www.nvasaverasatta.com','http://www.nvasaverasatta.com','http://localhost:3000']
-// })) // Use this after the variable declaration
-
-// app.use((req, res, next) => {
-//     res.set({
-//         "Access-Control-Allow-Origin": "*",
-//         "Access-Control-Allow-Methods": "*",
-//         "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
-//     });
-
-//     next();
-// });
 
 // for parsing multipart/form-data
 app.use(fileUpload.array()); 
@@ -70,6 +72,13 @@ const PORT = process.env.PORT || 9000;
 mongoose.connect(process.env.DB_CONNECTION,{ 
     useNewUrlParser : true
 },() => console.log('mongo connected !!'));
-app.listen(PORT,(req,res) => {
-    console.log('Listen to '+PORT);
-});
+
+// app.listen(PORT,(req,res) => {
+//     console.log('Listen to '+PORT);
+// });
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(PORT,(req,res) => {
+        console.log('Listen to '+PORT);
+    });
